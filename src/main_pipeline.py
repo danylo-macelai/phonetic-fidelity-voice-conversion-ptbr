@@ -5,37 +5,44 @@ from utils.dataset_preparation import prepare_subset
 @click.group()
 def cli():
     """
-    Interface de linha de comando (CLI) para o pipeline de pós-processamento fonêmico.
+    Command Line Interface (CLI) for the phonemic post-processing pipeline.
 
-    Subcomandos disponíveis:
+    Available subcommands:
 
-        - prepare    → Gera um subset filtrado do LibriSpeech ASR corpus.
+        - prepare    → Generates a filtered subset of the LibriSpeech ASR corpus.
     """
 
 
 @cli.command(name="prepare")
 @click.option(
-    "-l", "--libri_speech_dir",
+    "-d", "--dataset",
     required=True,
     type=click.Path(exists=True, file_okay=False),
-    help="Diretório raiz do LibriSpeech (por exemplo: D://.../mls_portuguese)."
+    help="Root directory of the MLS dataset (e.g., D://.../mls_portuguese)."
+)
+@click.option(
+    "-l", "--level",
+    default="dev",
+    show_default=True,
+    type=click.Choice(["dev", "test", "train"], case_sensitive=False),
+    help="Dataset split to use: dev, test, or train. Default is dev."
 )
 @click.option(
     "-s", "--seconds",
     default=18000,
     show_default=True,
-    help="Tempo máximo total de áudio no subset, em segundos (padrão: 18000 ≈ 5 horas)."
+    help="Maximum total audio time in the subset, in seconds (default: 18000 ≈ 5 hours)."
 )
-def prepare(libri_speech_dir: str, seconds: int):
+def prepare(dataset: str, level: str, seconds: int):
     """
-    Gera um subconjunto do dataset LibriSpeech ASR corpus em português do Brasil.
+    Generates a filtered subset of the MLS Portuguese dataset.
 
-    Exemplos:
+    Examples:
 
-        python src/main_pipeline.py prepare -l D://.../mls_portuguese -s 14400
-        python src/main_pipeline.py prepare --libri_speech_dir D://.../mls_portuguese --seconds 14400
+        python src/main_pipeline.py prepare -d D://.../mls_portuguese -l dev -s 14400
+        python src/main_pipeline.py prepare --dataset D://.../mls_portuguese --level dev --seconds 14400
     """
-    prepare_subset(libri_speech_dir, seconds)
+    prepare_subset(dataset, level, seconds)
 
 
 if __name__ == "__main__":

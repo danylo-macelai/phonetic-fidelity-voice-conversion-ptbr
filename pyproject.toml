@@ -40,7 +40,9 @@ classifiers = [
 ]
 
 dependencies = [
-    "click"
+    "click",
+    "pandas",
+    "tqdm"
 ]
 
 [project.urls]

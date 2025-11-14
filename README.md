@@ -52,15 +52,19 @@ pip install -e .
     <ol>
         <li>
             Gerar subset filtrado do dataset:<br>
-            <code>python src/main_pipeline.py prepare -l D://.../mls_portuguese -s 14400</code>
+            <code>python src/main_pipeline.py prepare -d D://.../mls_portuguese -l dev -s 14400</code>
         </li>
     </ol>
 </div>
 <h2>Pré-requisitos</h2>
 <div id="markdown-links-uteis" align="left">
 
+[![ffmpeg](https://img.shields.io/badge/ffmpeg-(download)-FAEAE4)](https://ffmpeg.org/download.html)
 [![LibriSpeech](https://img.shields.io/badge/LibriSpeech-(dataset)-FAEAE4)](https://www.openslr.org/94/)
 [![Python](https://img.shields.io/badge/Python-v3.10+-FAEAE4)](https://www.python.org/downloads/)
 [![VSCode](https://img.shields.io/badge/VS%20Code-v1.99.3+-FAEAE4)](https://code.visualstudio.com/download)
-
+    <blockquote>
+        <p><strong>⚠️ Atenção:</strong></p>
+        <p><strong>❝</strong> It also requires the command-line tool <code>ffmpeg</code> to be installed on your system, which is available from most package managers. <strong>❞</strong></p>
+    </blockquote>
 </div>   
