@@ -1,0 +1,53 @@
+[project]
+name = "phonetic-fidelity-voice-conversion-ptbr"
+version = "0.1.0"
+description = "A phonetic analysis pipeline leveraging LibriSpeech and Allosaurus, followed by voice conversion using Seed-VC and an assessment of phonetic preservation through PER and CER metrics."
+authors = [
+    { name = "Danylo Macelai" },
+    { name = "Renato Jesus" },
+]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.9"
+
+keywords = [
+    "voice-conversion",
+    "phonetics",
+    "speech-processing",
+    "librispeech",
+    "allosaurus",
+    "seed-vc",
+    "phoneme-extraction",
+    "phoneme-error-rate",
+    "character-error-rate",
+    "speech-analysis",
+    "pfvc"
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Multimedia :: Sound/Audio :: Analysis",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+
+dependencies = [
+    "click"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/danylo-macelai/phonetic-fidelity-voice-conversion-ptbr"
+"Repository" = "https://github.com/danylo-macelai/phonetic-fidelity-voice-conversion-ptbr"
+"Paper" = "https://www.isca-archive.org/isaph_2025/"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

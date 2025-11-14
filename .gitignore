@@ -29,3 +29,13 @@ htmlcov/
 
 # PyInstaller
 *.spec
+
+# Ignore dataset, model and output artifacts but keep structure
+datasets/**
+models/**
+outputs/**
+
+# Keep directory placeholders
+!datasets/.gitkeep
+!models/.gitkeep
+!outputs/.gitkeep
