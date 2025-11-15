@@ -1,9 +1,8 @@
 import os
-import subprocess
 from typing import Dict, List, Tuple
 from tqdm import tqdm
 import pandas as pd
-
+from .common import convert_audio_to_wav
 
 def load_segments(segments_path: str) -> List[Tuple[str, float, float]]:
     """
@@ -59,34 +58,11 @@ def index_flacs(audio_dir: str) -> Dict[str, str]:
     return idx
 
 
-def convert_audio_to_wav(input_path: str, output_path: str, sample_rate: int = 16000) -> bool:
-    """
-    Converts an audio file to WAV (mono, 16 kHz, 16-bit PCM) using ffmpeg.
-    """
-    cmd = [
-        "ffmpeg",
-        "-nostdin",              # Prevents ffmpeg from waiting for input
-        "-threads", "0",         # Uses all available CPU threads
-        "-i", input_path,        # Input file
-        "-f", "wav",             # Output format
-        "-acodec", "pcm_s16le",  # 16-bit PCM
-        "-ac", "1",              # Mono
-        "-ar", str(sample_rate), # 16 kHz
-        "-y",                    # Overwrite output without asking
-        output_path,
-    ]
-
-    try:
-        subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
-        return True
-    except subprocess.CalledProcessError:
-        return False
-
-
 def prepare_mls(mls_dir: str, level: str, seconds: int) -> None:
     """
-    Generates metadata.csv with: [audio_path, transcription, duration_ms].
-    """
+    Generates metadata.csv with: [audio_path, transcription, duration_ms] and converts filtered audio
+    to WAV mono 16 kHz and saves them under datasets/source.
+.    """
 
     seg_file = f"{mls_dir}/{level}/segments.txt"
     txt_file = f"{mls_dir}/{level}/transcripts.txt"
@@ -96,8 +72,8 @@ def prepare_mls(mls_dir: str, level: str, seconds: int) -> None:
     audio_mls_dir = f"{mls_dir}/{level}/audio"
     flacs = index_flacs(audio_mls_dir)
 
-    out_audio = "datasets/audio"
-    os.makedirs(out_audio, exist_ok=True)
+    out_source = "datasets/source"
+    os.makedirs(out_source, exist_ok=True)
 
     os.makedirs("datasets", exist_ok=True)
     metadata_path = "datasets/metadata.csv"
@@ -107,7 +83,7 @@ def prepare_mls(mls_dir: str, level: str, seconds: int) -> None:
 
     rows: List[List] = []
 
-    for cid, start, end in tqdm(segs, desc=f"Resampling to mono 16 kHz"):
+    for cid, start, end in tqdm(segs, desc=f"MLS(Source Speakers) Resampling to mono 16 kHz"):
         if cid not in texts or cid not in flacs:
             continue
 
@@ -116,7 +92,7 @@ def prepare_mls(mls_dir: str, level: str, seconds: int) -> None:
             continue
 
         src = flacs[cid]
-        dst = f"{out_audio}/{cid}.wav"
+        dst = f"{out_source}/{cid}.wav"
 
         if convert_audio_to_wav(src, dst):
             total_ms += dur_ms
@@ -125,7 +101,7 @@ def prepare_mls(mls_dir: str, level: str, seconds: int) -> None:
     df = pd.DataFrame(rows, columns=["audio", "transcription", "duration_ms"])
     df.to_csv(metadata_path, sep="\t", index=False)
 
-def prepare_subset(mls_dir: str, level: str, seconds: int) -> None:
+def prepare_subset_source(mls_dir: str, level: str, seconds: int) -> None:
     """
     Runs the full pipeline to generate a filtered subset of the MLS dataset.
     """

@@ -1,6 +1,6 @@
 import click
-from utils.dataset_preparation import prepare_subset
-
+from utils.generates_source_speakers import prepare_subset_source
+from utils.generates_target_speakers import prepare_subset_target
 
 @click.group()
 def cli():
@@ -15,10 +15,16 @@ def cli():
 
 @cli.command(name="prepare")
 @click.option(
-    "-d", "--dataset",
+    "-ls", "--librispeech",
     required=True,
     type=click.Path(exists=True, file_okay=False),
     help="Root directory of the MLS dataset (e.g., D://.../mls_portuguese)."
+)
+@click.option(
+    "-cv", "--commonvoice",
+    required=True,
+    type=click.Path(exists=True, file_okay=False),
+    help="Root directory of the MCV dataset (e.g., D://.../pt)."
 )
 @click.option(
     "-l", "--level",
@@ -33,16 +39,17 @@ def cli():
     show_default=True,
     help="Maximum total audio time in the subset, in seconds (default: 18000 ≈ 5 hours)."
 )
-def prepare(dataset: str, level: str, seconds: int):
+def prepare(librispeech: str, commonvoice: str, level: str, seconds: int):
     """
     Generates a filtered subset of the MLS Portuguese dataset.
 
     Examples:
 
-        python src/main_pipeline.py prepare -d D://.../mls_portuguese -l dev -s 14400
-        python src/main_pipeline.py prepare --dataset D://.../mls_portuguese --level dev --seconds 14400
+        python src/main_pipeline.py prepare -ls D://.../mls_portuguese -cv D://.../pt -l dev -s 14400
+        python src/main_pipeline.py prepare --dataset     D://.../mls_portuguese  --commonvoice D://.../pt --level dev --seconds 14400
     """
-    prepare_subset(dataset, level, seconds)
+    prepare_subset_source(librispeech, level, seconds)
+    prepare_subset_target(commonvoice, level)
 
 
 if __name__ == "__main__":
