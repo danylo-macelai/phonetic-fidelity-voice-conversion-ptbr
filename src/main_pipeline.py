@@ -79,7 +79,7 @@ def extract():
 
         python src/main_pipeline.py extract
     """
-    prepare_synthesized_subset()
+    prepare_phoneme_sequences()
 
 
 if __name__ == "__main__":
