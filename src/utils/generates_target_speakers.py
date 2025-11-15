@@ -53,4 +53,7 @@ def prepare_subset_target(mcv_dir: str, level: str) -> None:
     """
     Runs the full pipeline to generate a filtered subset of the MCV dataset.
     """
-    prepare_mcv(mcv_dir, level)
+    prepare_mcv(
+        mcv_dir, 
+        level
+    )
