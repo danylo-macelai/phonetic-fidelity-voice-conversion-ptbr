@@ -2,6 +2,7 @@ import click
 from utils.generates_source_speakers import prepare_subset_source
 from utils.generates_target_speakers import prepare_subset_target
 from utils.generate_synthesized_speakers import prepare_synthesized_subset
+from utils.generates_phoneme_sequences import prepare_phoneme_sequences
 
 
 @click.group()
@@ -11,7 +12,9 @@ def cli():
 
     Available subcommands:
 
-        - prepare    → Generates a filtered subset of the LibriSpeech ASR corpus.
+        • prepare   → Generates filtered MLS (source) and MCV (target) subsets.
+        • convert   → Generates synthesized audio via voice conversion.
+        • extract   → Extracts phoneme sequences from real & synthetic audio.
     """
 
 
@@ -62,6 +65,19 @@ def convert():
     Examples:
 
         python src/main_pipeline.py convert
+    """
+    prepare_synthesized_subset()
+
+
+@cli.command(name="extract")
+def extract():
+    """
+    Extracts phoneme sequences from source and synthesized audio, generating 
+    files such as phonemes_metadata.csv.
+
+    Examples:
+
+        python src/main_pipeline.py extract
     """
     prepare_synthesized_subset()
 
