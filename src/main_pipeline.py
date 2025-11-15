@@ -1,6 +1,8 @@
 import click
 from utils.generates_source_speakers import prepare_subset_source
 from utils.generates_target_speakers import prepare_subset_target
+from utils.generate_synthesized_speakers import prepare_synthesized_subset
+
 
 @click.group()
 def cli():
@@ -41,15 +43,27 @@ def cli():
 )
 def prepare(librispeech: str, commonvoice: str, level: str, seconds: int):
     """
-    Generates a filtered subset of the MLS Portuguese dataset.
+    Generates subsets for MLS (source speakers) and MCV (target speakers).
 
     Examples:
 
         python src/main_pipeline.py prepare -ls D://.../mls_portuguese -cv D://.../pt -l dev -s 14400
-        python src/main_pipeline.py prepare --dataset     D://.../mls_portuguese  --commonvoice D://.../pt --level dev --seconds 14400
+        python src/main_pipeline.py prepare --datasetD://.../mls_portuguese  --commonvoice D://.../pt --level dev --seconds 14400
     """
     prepare_subset_source(librispeech, level, seconds)
     prepare_subset_target(commonvoice, level)
+
+
+@cli.command(name="convert")
+def convert():
+    """
+    Generates converted/synthesized audio using a Voice Conversion.
+
+    Examples:
+
+        python src/main_pipeline.py convert
+    """
+    prepare_synthesized_subset()
 
 
 if __name__ == "__main__":

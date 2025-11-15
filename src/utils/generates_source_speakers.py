@@ -76,7 +76,7 @@ def prepare_mls(mls_dir: str, level: str, seconds: int) -> None:
     os.makedirs(out_source, exist_ok=True)
 
     os.makedirs("datasets", exist_ok=True)
-    metadata_path = "datasets/metadata.csv"
+    metadata_path = "datasets/source_metadata.csv"
 
     limit_ms = seconds * 1000
     total_ms = 0
@@ -105,4 +105,8 @@ def prepare_subset_source(mls_dir: str, level: str, seconds: int) -> None:
     """
     Runs the full pipeline to generate a filtered subset of the MLS dataset.
     """
-    prepare_mls(mls_dir, level, seconds)
+    prepare_mls(
+        mls_dir, 
+        level, 
+        seconds
+    )

@@ -56,8 +56,12 @@ pip install -e .
     <h2>Pipeline</h2>
     <ol>
         <li>
-            Gerar subset filtrado do dataset:<br>
+            <strong>Preparar subconjuntos de falantes fonte e alvo:</strong><br>
             <code>python src/main_pipeline.py prepare -ls D://.../mls_portuguese -cv D://.../pt -l dev -s 14400</code>
+        </li>
+        <li>
+            <strong>Gerar áudios convertidos usando Voice Conversion:</strong><br>
+            <code>python src/main_pipeline.py convert</code>
         </li>
     </ol>
 </div>
@@ -65,7 +69,7 @@ pip install -e .
 <div id="markdown-links-uteis" align="left">
 
 [![ffmpeg](https://img.shields.io/badge/ffmpeg-(download)-FAEAE4)](https://ffmpeg.org/download.html)
-[![CommonVoice](https://img.shields.io/badge/Common%20Voice-(dataset)-FAEAE4)](https://www.openslr.org/94/)
+[![CommonVoice](https://img.shields.io/badge/Common%20Voice-(dataset)-FAEAE4)](https://datacollective.mozillafoundation.org/datasets/cmflnuzw6rbhzx9lai7ha3emb)
 [![LibriSpeech](https://img.shields.io/badge/LibriSpeech-(dataset)-FAEAE4)](https://www.openslr.org/94/)
 [![Python](https://img.shields.io/badge/Python-v3.10+-FAEAE4)](https://www.python.org/downloads/)
 [![VSCode](https://img.shields.io/badge/VS%20Code-v1.99.3+-FAEAE4)](https://code.visualstudio.com/download)

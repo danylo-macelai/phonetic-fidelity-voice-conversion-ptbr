@@ -39,3 +39,5 @@ outputs/**
 !datasets/.gitkeep
 !models/.gitkeep
 !outputs/.gitkeep
+
+checkpoints/*
