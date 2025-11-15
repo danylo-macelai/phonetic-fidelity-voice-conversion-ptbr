@@ -10,8 +10,13 @@
     <p>1. Clonar o repositório</p>
 
 ```bash
-git clone https://github.com/DSM/phonetic-fidelity-voice-conversion-ptbr.git pfvc
+git clone --recurse-submodules https://github.com/danylo-macelai/phonetic-fidelity-voice-conversion-ptbr.git pfvc
 ```   
+   <blockquote>
+        <p>💡 <strong>Dica:</strong></p>
+        <p>Se você já clonou sem submódulos: (opcional)</p>
+        <pre><code>git submodule update --init --recursive</code></pre>
+    </blockquote>
    <p>2. Entrar na pasta do projeto</p>
 
 ```bash

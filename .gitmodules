@@ -1,0 +1,3 @@
+[submodule "models/seedvc"]
+	path = models/seedvc
+	url = https://github.com/Plachtaa/seed-vc.git
